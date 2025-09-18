@@ -111,7 +111,7 @@ export default function CloudinaryUpload({ onUpload }) {
     <div className="w-full">
       <div
         ref={dropZoneRef}
-        className={`relative border-2 border-dashed rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-12 text-center transition-all duration-300 ${
+        className={`relative border-2 border-dashed rounded-lg sm:rounded-xl lg:rounded-2xl p-4 sm:p-6 lg:p-8 xl:p-12 text-center transition-all duration-300 ${
           dragActive
             ? "border-black bg-gray-100 shadow-2xl"
             : "border-gray-300 hover:border-gray-400 bg-gray-50 hover:bg-gray-100"
@@ -172,7 +172,7 @@ export default function CloudinaryUpload({ onUpload }) {
               </span>
               <span className="text-base sm:text-lg text-gray-600">
                 or{" "}
-                <span className="text-black hover:text-gray-800 font-semibold transition-colors duration-200">
+                <span className="text-white bg-blue-900 p-2 rounded-lg font-semibold transition-colors duration-200">
                   browse files
                 </span>
               </span>
@@ -196,9 +196,9 @@ export default function CloudinaryUpload({ onUpload }) {
         </div>
 
         {dragActive && (
-          <div className="absolute inset-0 bg-black/5 rounded-xl sm:rounded-2xl flex items-center justify-center border-2 border-black">
-            <div className="bg-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-2xl border border-gray-300">
-              <p className="text-black font-bold text-lg sm:text-xl">
+          <div className="absolute inset-0 bg-black/5 rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center justify-center border-2 border-black">
+            <div className="bg-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-lg sm:rounded-xl shadow-2xl border border-gray-300">
+              <p className="text-black font-bold text-base sm:text-lg lg:text-xl">
                 🎯 Drop files here
               </p>
             </div>

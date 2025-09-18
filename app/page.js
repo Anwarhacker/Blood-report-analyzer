@@ -6,7 +6,7 @@ import ExpertChat from "@/components/ExpertChat";
 
 export default function Home() {
   const [imageUrls, setImageUrls] = useState([]);
-  const [testType, setTestType] = useState("Dengue");
+  const [testType, setTestType] = useState("CBC (Complete Blood Count)");
   const [analysis, setAnalysis] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -104,9 +104,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <header className="bg-black border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg
                   className="w-4 h-4 sm:w-6 sm:h-6 text-white"
@@ -122,35 +122,37 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white truncate">
+              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white truncate">
                 AI Blood Report Analyzer
               </h1>
             </div>
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 ml-4">
               <a
                 href="/history"
-                className="px-3 py-2 sm:px-4 text-sm sm:text-base bg-gray-100 hover:bg-gray-200 text-black rounded-lg transition-all duration-200 border border-gray-300 whitespace-nowrap"
+                className="px-2 py-1 sm:px-3 sm:py-2 lg:px-4 text-xs sm:text-sm lg:text-base bg-gray-100 hover:bg-gray-200 text-black rounded-lg transition-all duration-200 border border-gray-300 whitespace-nowrap"
               >
-                View History
+                <span className="hidden sm:inline">View History</span>
+                <span className="sm:hidden">History</span>
               </a>
               <button
                 onClick={() => setIsChatOpen(true)}
-                className="px-3 py-2 sm:px-4 text-sm sm:text-base bg-green-400 hover:bg-gray-800 text-white rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
+                className="px-2 py-1 sm:px-3 sm:py-2 lg:px-4 text-xs sm:text-sm lg:text-base bg-green-400 hover:bg-gray-800 text-white rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
               >
-                💬 Chat
+                <span className="hidden sm:inline">💬 Chat</span>
+                <span className="sm:hidden">💬</span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12">
-        <div className="bg-white border border-gray-200 p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-xl space-y-6 sm:space-y-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-12">
+        <div className="bg-white border border-gray-200 p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-xl space-y-4 sm:space-y-6 lg:space-y-8">
           <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-3 sm:mb-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-2 sm:mb-3 lg:mb-4">
               Upload Your Reports
             </h2>
-            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-2 leading-relaxed">
               Upload one or more images of your blood test reports to get
               AI-powered analysis for each report with advanced medical
               insights.
@@ -172,11 +174,11 @@ export default function Home() {
                   🗑️ Clear All
                 </button>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 {imageUrls.map((imageData, index) => (
                   <div
                     key={`${imageData.url}-${index}`}
-                    className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 relative group hover:shadow-lg transition-all duration-300"
+                    className="bg-white border border-gray-200 rounded-lg sm:rounded-xl p-2 sm:p-3 lg:p-4 relative group hover:shadow-lg transition-all duration-300"
                   >
                     <button
                       onClick={() => {
@@ -184,22 +186,22 @@ export default function Home() {
                           prevUrls.filter((_, i) => i !== index)
                         );
                       }}
-                      className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-110"
+                      className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-110 z-10"
                       title="Remove image"
                     >
                       ×
                     </button>
-                    <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                      <p className="text-xs sm:text-sm font-medium text-gray-700 truncate pr-6 sm:pr-8">
+                    <div className="flex items-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full flex-shrink-0"></div>
+                      <p className="text-xs sm:text-sm font-medium text-gray-700 truncate pr-4 sm:pr-6 lg:pr-8">
                         {imageData.filename}
                       </p>
                     </div>
-                    <div className="relative overflow-hidden rounded-lg">
+                    <div className="relative overflow-hidden rounded-md sm:rounded-lg">
                       <img
                         src={imageData.url}
                         alt={`Uploaded blood report ${index + 1}`}
-                        className="w-full h-24 sm:h-32 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                        className="w-full h-20 sm:h-24 lg:h-32 object-cover rounded-md sm:rounded-lg hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
@@ -224,11 +226,117 @@ export default function Home() {
                 onChange={(e) => setTestType(e.target.value)}
                 className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-white border border-gray-300 rounded-lg text-black text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-all duration-200"
               >
-                <option className="bg-white text-black">Dengue</option>
-                <option className="bg-white text-black">Malaria</option>
-                <option className="bg-white text-black">Typhoid</option>
-                <option className="bg-white text-black">Thyroid</option>
-                <option className="bg-white text-black">Diabetes</option>
+                {/* Infectious Diseases */}
+                <optgroup label="Infectious Diseases">
+                  <option className="bg-white text-black">Dengue</option>
+                  <option className="bg-white text-black">Malaria</option>
+                  <option className="bg-white text-black">Typhoid</option>
+                  <option className="bg-white text-black">HIV</option>
+                  <option className="bg-white text-black">Hepatitis B</option>
+                  <option className="bg-white text-black">Hepatitis C</option>
+                  <option className="bg-white text-black">Syphilis</option>
+                </optgroup>
+
+                {/* Hormonal Tests */}
+                <optgroup label="Hormonal Tests">
+                  <option className="bg-white text-black">Thyroid</option>
+                  <option className="bg-white text-black">Testosterone</option>
+                  <option className="bg-white text-black">Estrogen</option>
+                  <option className="bg-white text-black">Progesterone</option>
+                  <option className="bg-white text-black">Cortisol</option>
+                  <option className="bg-white text-black">Prolactin</option>
+                </optgroup>
+
+                {/* Metabolic Tests */}
+                <optgroup label="Metabolic Tests">
+                  <option className="bg-white text-black">Diabetes</option>
+                  <option className="bg-white text-black">Lipid Profile</option>
+                  <option className="bg-white text-black">
+                    Liver Function Test
+                  </option>
+                  <option className="bg-white text-black">
+                    Kidney Function Test
+                  </option>
+                  <option className="bg-white text-black">
+                    Electrolyte Panel
+                  </option>
+                  <option className="bg-white text-black">Vitamin D</option>
+                  <option className="bg-white text-black">Vitamin B12</option>
+                  <option className="bg-white text-black">Iron Studies</option>
+                </optgroup>
+
+                {/* Complete Blood Count */}
+                <optgroup label="Complete Blood Count">
+                  <option className="bg-white text-black">
+                    CBC (Complete Blood Count)
+                  </option>
+                  <option className="bg-white text-black">Hemoglobin</option>
+                  <option className="bg-white text-black">
+                    White Blood Cell Count
+                  </option>
+                  <option className="bg-white text-black">
+                    Platelet Count
+                  </option>
+                  <option className="bg-white text-black">
+                    ESR (Erythrocyte Sedimentation Rate)
+                  </option>
+                </optgroup>
+
+                {/* Cardiac Markers */}
+                <optgroup label="Cardiac Markers">
+                  <option className="bg-white text-black">Troponin</option>
+                  <option className="bg-white text-black">CK-MB</option>
+                  <option className="bg-white text-black">BNP</option>
+                  <option className="bg-white text-black">hs-CRP</option>
+                </optgroup>
+
+                {/* Cancer Markers */}
+                <optgroup label="Cancer Markers">
+                  <option className="bg-white text-black">
+                    PSA (Prostate Specific Antigen)
+                  </option>
+                  <option className="bg-white text-black">CA-125</option>
+                  <option className="bg-white text-black">
+                    CEA (Carcinoembryonic Antigen)
+                  </option>
+                  <option className="bg-white text-black">
+                    AFP (Alpha Fetoprotein)
+                  </option>
+                </optgroup>
+
+                {/* Autoimmune Tests */}
+                <optgroup label="Autoimmune Tests">
+                  <option className="bg-white text-black">
+                    ANA (Antinuclear Antibody)
+                  </option>
+                  <option className="bg-white text-black">RA Factor</option>
+                  <option className="bg-white text-black">Anti-CCP</option>
+                  <option className="bg-white text-black">dsDNA</option>
+                </optgroup>
+
+                {/* Coagulation Tests */}
+                <optgroup label="Coagulation Tests">
+                  <option className="bg-white text-black">PT/INR</option>
+                  <option className="bg-white text-black">APTT</option>
+                  <option className="bg-white text-black">D-Dimer</option>
+                  <option className="bg-white text-black">Fibrinogen</option>
+                </optgroup>
+
+                {/* Other Common Tests */}
+                <optgroup label="Other Tests">
+                  <option className="bg-white text-black">
+                    Blood Group & Rh Factor
+                  </option>
+                  <option className="bg-white text-black">
+                    Urine Analysis
+                  </option>
+                  <option className="bg-white text-black">
+                    Stool Analysis
+                  </option>
+                  <option className="bg-white text-black">
+                    Semen Analysis
+                  </option>
+                </optgroup>
               </select>
             </div>
 
@@ -600,19 +708,19 @@ export default function Home() {
                           <h5 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 flex items-center">
                             <span className="mr-2">📈</span> Parameters
                           </h5>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
                             {report.analysis.parameters.map(
                               (param, paramIndex) => (
                                 <div
                                   key={paramIndex}
-                                  className="bg-white border border-gray-200 p-3 sm:p-4 rounded-lg"
+                                  className="bg-white border border-gray-200 p-2 sm:p-3 lg:p-4 rounded-lg hover:shadow-md transition-shadow duration-200"
                                 >
-                                  <div className="flex items-center justify-between mb-2">
-                                    <span className="font-medium text-gray-700 text-sm sm:text-base truncate mr-2">
+                                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 space-y-1 sm:space-y-0">
+                                    <span className="font-medium text-gray-700 text-xs sm:text-sm lg:text-base truncate">
                                       {param.name}
                                     </span>
                                     <span
-                                      className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
+                                      className={`px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs font-medium rounded-full flex-shrink-0 whitespace-nowrap ${
                                         param.status === "Normal"
                                           ? "bg-green-100 text-green-800 border border-green-200"
                                           : param.status === "High"
@@ -625,9 +733,14 @@ export default function Home() {
                                       {param.status}
                                     </span>
                                   </div>
-                                  <p className="text-black font-semibold text-sm sm:text-base">
+                                  <p className="text-black font-semibold text-sm sm:text-base lg:text-lg">
                                     {param.value}
                                   </p>
+                                  {param.referenceRange && (
+                                    <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                                      Normal: {param.referenceRange}
+                                    </p>
+                                  )}
                                 </div>
                               )
                             )}
@@ -948,21 +1061,21 @@ export default function Home() {
           )}
 
           {analysis && (
-            <div className="fixed bottom-6 right-6 z-40">
+            <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
               <button
                 onClick={() => setIsChatOpen(true)}
-                className="w-14 h-14 bg-black hover:bg-gray-800 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
+                className="w-12 h-12 sm:w-14 sm:h-14 bg-black hover:bg-gray-800 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
                 title="Chat with Medical Expert"
               >
-                <span className="text-xl">💬</span>
+                <span className="text-lg sm:text-xl">💬</span>
               </button>
-              <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full animate-pulse"></div>
             </div>
           )}
 
           {/* Copy notification */}
           {copiedText && (
-            <div className="fixed top-6 right-6 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg animate-pulse">
+            <div className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 bg-green-500 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg shadow-lg animate-pulse text-sm sm:text-base">
               ✅ {copiedText} copied to clipboard!
             </div>
           )}
