@@ -1,25 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useApp } from "@/components/AppContext";
 
 export default function History() {
-  const [reports, setReports] = useState([]);
+  const { state, actions, filteredHistory } = useApp();
+  const { history, searchQuery, filterStatus } = state;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchReports();
-  }, []);
-
-  const fetchReports = async () => {
-    try {
-      const response = await fetch("/api/reports");
-      const data = await response.json();
-      setReports(data);
-    } catch (error) {
-      console.error(error);
+    if (history.length > 0) {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [history]);
 
   const getStatusColor = (status) => {
     if (!status || typeof status !== "string") {
@@ -77,8 +70,56 @@ export default function History() {
           </h1>
           <div className="w-16 sm:w-20"></div> {/* Spacer for centering */}
         </div>
+        {/* Search and Filter Section */}
+        <div className="bg-white p-4 sm:p-6 rounded-lg sm:rounded-xl shadow-md mb-6">
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* Search Input */}
+            <div className="flex-1">
+              <label
+                htmlFor="search"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                🔍 Search Reports
+              </label>
+              <input
+                id="search"
+                type="text"
+                placeholder="Search by test type or filename..."
+                value={searchQuery}
+                onChange={(e) => actions.setSearchQuery(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black text-sm sm:text-base"
+              />
+            </div>
+
+            {/* Filter Dropdown */}
+            <div className="sm:w-48">
+              <label
+                htmlFor="filter"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                📊 Filter by Status
+              </label>
+              <select
+                id="filter"
+                value={filterStatus}
+                onChange={(e) => actions.setFilterStatus(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-black text-sm sm:text-base"
+              >
+                <option value="all">All Reports</option>
+                <option value="normal">Normal</option>
+                <option value="abnormal">Abnormal</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Results Summary */}
+          <div className="mt-4 text-sm text-gray-600">
+            Showing {filteredHistory.length} of {history.length} reports
+          </div>
+        </div>
+
         <div className="space-y-4 sm:space-y-6">
-          {reports.map((report, index) => (
+          {filteredHistory.map((report, index) => (
             <div
               key={report._id ? report._id.toString() : index}
               className="bg-white p-4 sm:p-6 lg:p-8 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
@@ -250,36 +291,54 @@ export default function History() {
           ))}
         </div>
 
-        {reports.length === 0 && !loading && (
+        {filteredHistory.length === 0 && !loading && (
           <div className="text-center py-12 sm:py-16">
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl sm:text-3xl">📊</span>
+              <span className="text-2xl sm:text-3xl">
+                {history.length === 0 ? "📊" : "🔍"}
+              </span>
             </div>
             <h3 className="text-lg sm:text-xl font-semibold text-gray-700 mb-2">
-              No Reports Found
+              {history.length === 0
+                ? "No Reports Found"
+                : "No Matching Reports"}
             </h3>
             <p className="text-sm sm:text-base text-gray-500 mb-6">
-              Upload and analyze your first blood report to see it here.
+              {history.length === 0
+                ? "Upload and analyze your first blood report to see it here."
+                : "Try adjusting your search or filter criteria."}
             </p>
-            <a
-              href="/"
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {history.length === 0 ? (
+              <a
+                href="/"
+                className="inline-flex items-center space-x-2 px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                />
-              </svg>
-              <span>Go to Home</span>
-            </a>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span>Go to Home</span>
+              </a>
+            ) : (
+              <button
+                onClick={() => {
+                  actions.setSearchQuery("");
+                  actions.setFilterStatus("all");
+                }}
+                className="inline-flex items-center space-x-2 px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <span>Clear Filters</span>
+              </button>
+            )}
           </div>
         )}
       </div>
