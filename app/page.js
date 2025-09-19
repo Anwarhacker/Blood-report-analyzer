@@ -370,8 +370,8 @@ export default function Home() {
             )}
 
             {analysis && !showSkeleton && (
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
-                <div className="flex items-center justify-between mb-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-3 shadow-lg">
+                <div className="flex flex-col items-center justify-between mb-6 space-y-1 sm:space-y-0 sm:flex-row">
                   <h3 className="text-xl font-semibold text-black">
                     📊 Analysis Results
                   </h3>
@@ -390,6 +390,8 @@ export default function Home() {
                           : "bg-red-500"
                       }`}
                     ></div>
+                  </div>
+                  <div className="flex items-center space-x-2">
                     <button
                       onClick={() => {
                         const fullAnalysis = analysis.reports
@@ -519,7 +521,7 @@ export default function Home() {
                           "Complete Analysis Results"
                         );
                       }}
-                      className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-all duration-200 flex items-center space-x-1"
+                      className="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-all duration-200 flex items-center space-x-1 m-1"
                       title="Copy all analysis results"
                     >
                       <span>📋</span>
